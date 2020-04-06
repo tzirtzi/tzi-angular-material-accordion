@@ -1,0 +1,69 @@
+<mat-accordion class="headers-align">
+  
+  <ng-template ngFor let-item 
+    [ngForOf]="accordionItems" let-i="index" [ngForTrackBy]="trackByFn">
+
+    <ng-template [ngIf]="accordionItems[i].type=='PersonalData'">
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon [style.color]="'blueviolet'" >account_circle</mat-icon>
+            Personal data
+          </mat-panel-title>
+          <mat-panel-description>
+            Type your name and age
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input matInput 
+                [(ngModel)]=accordionItems[i].data.name.first >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1"
+                [(ngModel)]=accordionItems[i].data.age>
+        </mat-form-field>
+      </mat-expansion-panel>
+
+    </ng-template>
+    
+    <ng-template [ngIf]="accordionItems[i].type=='text'">
+
+      <mat-expansion-panel (opened)="accordionItems[i].titleProperty.stateOpen = true"
+                          (closed)="accordionItems[i].titleProperty.stateOpen = false"
+                          [disabled]="accordionItems[i].isDisabled">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ accordionItems[i].title }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{accordionItems[i].titleProperty.stateOpen ? accordionItems[i].titleProperty.open : accordionItems[i].titleProperty.closed }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p> {{ accordionItems[i].data.text }}</p>
+        <p> 
+          Item # {{ i }} 
+        <p>
+        
+      </mat-expansion-panel>
+    
+    </ng-template>
+
+  </ng-template>
+
+</mat-accordion>
+
+
+<!-- <p>Personal data values are 
+   name :{{accordionItems[0].data.name.first}} 
+   age : {{accordionItems[0].data.age}}
+</p> -->
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
